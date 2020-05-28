@@ -11,7 +11,7 @@ module.exports = function (RED) {
 
     // Retrieve the config node
     this.on('input', function (msg) {
-      puppeteer.launch( { headless: node.headless, slowMo: node.slowMo } )
+      puppeteer.launch( { args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: true, slowMo: node.slowMo } )
         .then((browser) => {
           msg.puppeteer = {
             browser
@@ -20,7 +20,6 @@ module.exports = function (RED) {
         })
     })
     oneditprepare: function oneditprepare() {
-      $("#node-input-headless").val(this.headless === true ? "1" : "0")
       $("#node-input-slowMo").val(this.slowMo)
       $("#node-input-name").val(this.name)
     }
